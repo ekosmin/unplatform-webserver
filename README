@@ -1,0 +1,1 @@
+This is the Unplatform webserver, meant to be run locally. To do this, run 'python manage.py runserver". You will need to have Django and SQLite installed for this to work, though the latter is installed on OSX by default. 
