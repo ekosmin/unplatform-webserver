@@ -18,6 +18,8 @@ def urlPost(suffix, requestParams, preventDump):
     try:
       response = str(urlopen(url, requestParams).read())
       log("Success: " + response)
+      if not preventDump:
+        dumpRequests()  
       return response
     except URLError as e:
       response = "Failure posting to " + url + ": " + str(e.reason)
@@ -25,6 +27,11 @@ def urlPost(suffix, requestParams, preventDump):
       request = Request(url=suffix, params=requestParams)
       request.save()
       return response
+
+def dumpRequests():
+    for request in Request.objects.all():
+        request.delete()
+        urlPost(request.url, request.params, True)
 
 def log(text):
     print >> sys.stderr, text
